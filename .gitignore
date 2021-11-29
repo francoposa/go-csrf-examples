@@ -1,0 +1,10 @@
+# filesystem artifacts
+**/.DS_Store
+
+# editors
+**/.idea/*
+**/.vscode/*
+
+# javascript
+**/*.js
+**/node_modules/*

@@ -1,0 +1,23 @@
+---
+serverBackend:
+  host: localhost
+  port: 8000
+  timeout:
+    server: 30
+    read: 15
+    write: 10
+    idle: 5
+  cors:
+    allowCredentials: true
+    allowedHeaders:
+      - X-CSRF-Token
+    exposedHeaders:
+      - X-CSRF-Token
+    allowedOrigins:
+      - http://localhost*
+    debug: true  # false in development only!
+  csrf:
+    secure: false
+    key: place-your-32-byte-long-key-here
+    cookieName: csrf
+    header: X-CSRF-Token
