@@ -1,7 +1,7 @@
 ---
-serverBackend:
+serverAPI:
   host: localhost
-  port: 8000
+  port: 8080
   timeout:
     server: 30
     read: 15
@@ -15,9 +15,17 @@ serverBackend:
       - X-CSRF-Token
     allowedOrigins:
       - http://localhost*
-    debug: true  # false in development only!
+    debug: true
   csrf:
-    secure: false
+    secure: false  # false in development only!
     key: place-your-32-byte-long-key-here
     cookieName: csrf
     header: X-CSRF-Token
+serverUI:
+  host: localhost
+  port: 8081
+  timeout:
+    server: 30
+    read: 15
+    write: 10
+    idle: 5

@@ -12,7 +12,7 @@ var (
 		Use:   "",
 		Short: "",
 		Long:  ``,
-		//Run: func(cmd *cobra.Command, args []string) {
+		//run: func(cmd *cobra.Command, args []string) {
 		//	// Do stuff here if root command can be used alone
 		//},
 	}
