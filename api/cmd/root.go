@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -20,7 +22,7 @@ var (
 
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		panic(err)
+		log.Panic(err)
 	}
 }
 
@@ -44,7 +46,7 @@ func initConfig() {
 	if err := viper.ReadInConfig(); err == nil {
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	} else {
-		panic(err)
+		log.Panic(err)
 	}
 
 }

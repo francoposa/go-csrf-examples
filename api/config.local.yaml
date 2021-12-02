@@ -1,5 +1,5 @@
 ---
-serverAPI:
+server:
   host: localhost
   port: 8080
   timeout:
@@ -21,11 +21,3 @@ serverAPI:
     key: place-your-32-byte-long-key-here
     cookieName: csrf
     header: X-CSRF-Token
-serverUI:
-  host: localhost
-  port: 8081
-  timeout:
-    server: 30
-    read: 15
-    write: 10
-    idle: 5
