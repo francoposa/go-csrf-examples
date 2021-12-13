@@ -6,5 +6,4 @@
 **/.vscode/*
 
 # javascript
-**/*.js
 **/node_modules/*
