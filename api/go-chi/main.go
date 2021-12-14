@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/francoposa/go-csrf-examples/ui/cmd"
+	"github.com/francoposa/go-csrf-examples/api/go-chi/cmd"
 )
 
 func main() {

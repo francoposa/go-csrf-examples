@@ -1,4 +1,4 @@
-module github.com/francoposa/go-csrf-examples/ui
+module github.com/francoposa/go-csrf-examples/ui/axios-js
 
 go 1.17
 

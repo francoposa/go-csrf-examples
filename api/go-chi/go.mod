@@ -1,4 +1,4 @@
-module github.com/francoposa/go-csrf-examples/api
+module github.com/francoposa/go-csrf-examples/api/go-chi
 
 go 1.17
 
