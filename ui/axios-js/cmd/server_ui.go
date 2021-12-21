@@ -25,7 +25,7 @@ func Run(cmd *cobra.Command, args []string) {
 	if err != nil {
 		log.Panic(err)
 	}
-	httpStaticAssetsDir := http.Dir(fmt.Sprintf("%s/ui/web/static/", wd))
+	httpStaticAssetsDir := http.Dir(fmt.Sprintf("%s/ui/axios-js/web/static/", wd))
 
 	router := chi.NewRouter()
 

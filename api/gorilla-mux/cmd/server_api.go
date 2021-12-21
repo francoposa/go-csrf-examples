@@ -4,11 +4,12 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	"github.com/gorilla/csrf"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -21,10 +22,14 @@ var serverCmd = &cobra.Command{
 }
 
 func run(cmd *cobra.Command, args []string) {
-	router := chi.NewRouter()
+	router := mux.NewRouter()
 
-	router.Use(middleware.Logger)
+	loggingMiddleware := func(h http.Handler) http.Handler {
+		return handlers.LoggingHandler(os.Stdout, h)
+	}
+	router.Use(loggingMiddleware)
 
+	// This has to get applied later because Gorilla Mux is a pain
 	CORSMiddleware := cors.New(cors.Options{
 		AllowedOrigins:   viper.GetStringSlice(serverCORSAllowedOriginsFlag),
 		AllowCredentials: viper.GetBool(serverCORSAllowCredentialsFlag),
@@ -32,7 +37,6 @@ func run(cmd *cobra.Command, args []string) {
 		ExposedHeaders:   viper.GetStringSlice(serverCORSExposedHeadersFlag),
 		Debug:            viper.GetBool(serverCORSDebugFlag),
 	}).Handler
-	router.Use(CORSMiddleware)
 
 	CSRFMiddleware := csrf.Protect(
 		[]byte(viper.GetString(serverCSRFKeyFlag)),
@@ -41,10 +45,10 @@ func run(cmd *cobra.Command, args []string) {
 		csrf.RequestHeader(viper.GetString(serverCSRFHeader)),
 	)
 
-	router.Route("/api", func(router chi.Router) {
-		router.With(CSRFMiddleware).Get("/", Get)
-		router.With(CSRFMiddleware).Post("/", Post)
-	})
+	APIRouter := router.PathPrefix("/api").Subrouter()
+	APIRouter.Use(CSRFMiddleware)
+	APIRouter.HandleFunc("", Get).Methods(http.MethodGet)
+	APIRouter.HandleFunc("", Post).Methods(http.MethodPost)
 
 	host := viper.GetString(serverHostFlag)
 	port := viper.GetString(serverPortFlag)
@@ -52,7 +56,7 @@ func run(cmd *cobra.Command, args []string) {
 	writeTimeout := viper.GetInt(serverTimeoutWriteFlag)
 	idleTimeout := viper.GetInt(serverTimeoutIdleFlag)
 	server := &http.Server{
-		Handler:      router,
+		Handler:      CORSMiddleware(router),
 		Addr:         host + ":" + port,
 		ReadTimeout:  time.Duration(readTimeout) * time.Second,
 		WriteTimeout: time.Duration(writeTimeout) * time.Second,
