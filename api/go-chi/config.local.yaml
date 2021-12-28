@@ -10,11 +10,11 @@ server:
   cors:
     allowCredentials: true
     allowedHeaders:
-      - X-CSRF-Token
+      - X-CSRF-Token  # must be the same as configured CSRF Header
     exposedHeaders:
-      - X-CSRF-Token
+      - X-CSRF-Token  # must be the same as configured CSRF Header
     allowedOrigins:
-      - http://localhost*
+      - http://localhost*  # wildcard allows for varying port values in origin during development
     debug: true
   csrf:
     secure: false  # false in development only!
