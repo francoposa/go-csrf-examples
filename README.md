@@ -1,6 +1,8 @@
 # Go CSRF Examples
 
-Example code for common Golang Cross-Site Request Forgery protection libraries.
+https://en.wikipedia.org/wiki/Cross-site_request_forgery
+
+**Example code for common Golang Cross-Site Request Forgery protection libraries**
 
 This repository attempts to provide high-quality working code examples available for Golang CSRF protection,
 particularly the integration with common HTTP router and CORS libraries.
