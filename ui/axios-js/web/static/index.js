@@ -32,7 +32,6 @@ const post = async (axiosInstance, url) => {
     }
 };
 
-
 const parseCSRFToken = (resp) => {
     let csrfToken = resp.headers[csrfTokenHeader];
     if (!csrfToken) {
